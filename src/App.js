@@ -11,12 +11,26 @@ const StyleHomePage = styled.main`
 `;
 
 export default function App() {
+  const [characters, setCharacters] = useState([]);
+
+  useEffect(() => {
+    // TODO: Add API Request here - must run in `useEffect`
+    //  Important: verify the 2nd `useEffect` parameter: the dependancies array!
+    axios.get('https://rickandmortyapi.com/api/character/')
+    .then(response =>{
+      const characterList = response.data.results
+      // console.log(characterList)
+      setCharacters(characterList)
+    })
+    .catch(err => console.log(err))  
+  }, []);
   const hiddenCharacters = [];
   return (
     <StyleHomePage>
       <Header />
+      <SearchForm characters={characters} />
       <HiddenCharacters characters={hiddenCharacters} />
-      <Route path="/characters" component={CharacterList} />
+      <Route path="/characters" render(() =>/>
     </StyleHomePage>
   );
 }

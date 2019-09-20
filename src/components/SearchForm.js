@@ -55,15 +55,17 @@ function RenderSearchComponent ({searchResults}) {
   // let results = {}
   useEffect(() => {
     if (searchResults.length !== 0) {
-    const id = searchResults[0].id;
-    axios.get(`https://rickandmortyapi.com/api/character/${id}`)
-    .then(response =>{
+      searchResults.forEach(result =>{
+      const id = result.id;
+      axios.get(`https://rickandmortyapi.com/api/character/${id}`)
+      .then(response =>{
       // console.log(response.data)
       setResults(response.data)
       // debugger
       // console.log(results)
-    })
-    .catch(err => console.log(err))}
+      })
+      .catch(err => console.log(err))})
+    }
   }, [searchResults, results])
 
  
@@ -71,8 +73,9 @@ function RenderSearchComponent ({searchResults}) {
 
   return (
     <div>
-        
-      <CharacterDetails character={results} />
+      {searchResults.map(result => 
+        <CharacterDetails key={result.id} character={result} />) 
+      }
         
     </div>
   )
