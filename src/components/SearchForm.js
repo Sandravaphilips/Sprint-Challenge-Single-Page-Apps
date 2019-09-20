@@ -10,8 +10,6 @@ export default function SearchForm({characters}) {
     setSearchTerm(event.target.value);
   };
 
-  
-
   function onSubmit(e) {
     e.preventDefault();
 
@@ -19,8 +17,6 @@ export default function SearchForm({characters}) {
       character.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResults(results)
-    
-    
     
   }
   

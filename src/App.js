@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Header from "./components/Header.js";
 import CharacterList from "./components/CharacterList";
 import HiddenCharacters from "./HiddenCharacters";
 import { Route } from "react-router-dom";
 import styled from "styled-components";
+import SearchForm from "./components/SearchForm";
+import axios from 'axios';
 
 const StyleHomePage = styled.main`
   background-color: #202329;
@@ -30,7 +32,7 @@ export default function App() {
       <Header />
       <SearchForm characters={characters} />
       <HiddenCharacters characters={hiddenCharacters} />
-      <Route path="/characters" render(() =>/>
+      <Route path="/characters" render={() => <CharacterList characters={characters} />}/>
     </StyleHomePage>
   );
 }

@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
-import SearchForm from "./SearchForm";
+import React from "react";
+
+
 
 export default function CharacterList({characters}) {
   // TODO: Add useState to track data from useEffect
-
-  
-
   if(!characters)return <h2>Loading...</h2>
   return (
     <div>
