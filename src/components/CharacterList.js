@@ -19,7 +19,7 @@ export default function CharacterList() {
     .catch(err => console.log(err))  
   }, []);
 
-  if(!characters){ return `Loading...`}
+  if(!characters)return <h2>Loading...</h2>
   return (
     <div>
       <SearchForm characters={characters} />
