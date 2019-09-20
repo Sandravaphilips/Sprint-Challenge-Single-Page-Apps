@@ -27,7 +27,7 @@ export default function SearchForm({characters}) {
     if(!searchResults) return 'Loading...'
 
     return (
-      <CharacterDetails character={SearchResults} />
+      <CharacterDetails character={searchResults} />
     )
   }
   
