@@ -1,5 +1,5 @@
 import React from 'react';
-import CharacterList from './components/CharacterList';
+// import CharacterList from './components/CharacterList';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -20,7 +20,7 @@ export default function HiddenCharacters({characters}) {
             {characters.map(character => (
             <span>{character.name}</span>
             ))}
-            <StyleLink to='/characters' component={CharacterList}>
+            <StyleLink to='/characters'>
                 <div>View Characters</div>
             </StyleLink>
         </div>

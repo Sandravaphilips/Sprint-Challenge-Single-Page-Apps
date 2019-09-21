@@ -6,40 +6,26 @@ export default function SearchForm({characters}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  function OnSubmit() {
-    const results = characters.filter(character =>
-      character.name.toLowerCase().includes(searchTerm)
-    );
-    console.log(results)
-    // setSearchResults(results);
-    const id = results.id;
-
-    useEffect(() => {
-      
-  
-      axios.get(`https://rickandmortyapi.com/api/character/${id}`)
-      .then(response =>{
-        setSearchResults(response.data)
-      })
-      .catch(err => console.log(err))
-    }, [id]);
-
-    if(!searchResults) return 'Loading...'
-
-    return (
-      <CharacterDetails character={searchResults} />
-    )
-  }
-  
-
   const handleChange = event => {
     setSearchTerm(event.target.value);
   };
 
+  function onSubmit(e) {
+    e.preventDefault();
+
+    const results = characters.filter(character =>
+      character.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results)
+    
+  }
   
+
+  
+
   return (
     <section className="search-form">
-     <form>
+      <form>
         <label htmlFor="name">Search:</label>
         <input
           id="name"
@@ -49,12 +35,46 @@ export default function SearchForm({characters}) {
           value={searchTerm}
           onChange={handleChange}
         /> 
-        <input name="submit" type="submit" onSubmit={OnSubmit} ></input>
+        <button onClick={onSubmit} >Submit</button>
       </form>
-
       
+      <RenderSearchComponent searchResults={searchResults} />
     </section>
-  );
+  )
+  
 }
 
 
+function RenderSearchComponent ({searchResults}) {
+  const [results, setResults] = useState({})
+  
+  // let results = {}
+  useEffect(() => {
+    if (searchResults.length !== 0) {
+      searchResults.forEach(result =>{
+      const id = result.id;
+      axios.get(`https://rickandmortyapi.com/api/character/${id}`)
+      .then(response =>{
+      // console.log(response.data)
+      setResults(response.data)
+      // debugger
+      // console.log(results)
+      })
+      .catch(err => console.log(err))})
+    }
+  }, [searchResults, results])
+
+ 
+  if(Object.keys(results).length === 0) return <h4>Waiting on you</h4>
+
+  return (
+    <div>
+      {searchResults.map(result => 
+        <CharacterDetails key={result.id} character={result} />) 
+      }
+        
+    </div>
+  )
+  
+  
+}
